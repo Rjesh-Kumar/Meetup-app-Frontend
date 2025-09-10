@@ -59,7 +59,7 @@ const EventList = () => {
         <h2 className="fw-bold mb-3 mb-md-0">MeetUp Events</h2>
         <div className="w-100 w-md-auto position-relative">
           <select
-            className="rounded p-2 text-secondary w-100"
+            className="rounded p-2 text-secondary w-100 w-md-auto"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             style={{ border: "none", boxShadow: "none" }}
