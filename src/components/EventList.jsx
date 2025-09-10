@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -16,7 +14,8 @@ const EventList = () => {
   }, []);
 
   const filteredEvents = events.filter((event) => {
-    const matchesType = filterType === "Both" || event.type === filterType;
+    const matchesType =
+      filterType === "Both" || event.type === filterType;
     const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (event.tags &&
@@ -27,27 +26,24 @@ const EventList = () => {
   });
 
   return (
-    <div className="bg-light" style={{ minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#dee2e6", minHeight: "100vh" }}>
       {/* Header & Search */}
-      <div className="d-flex flex-column flex-md-row align-items-center justify-content-between px-3 py-3 w-100 container">
-        <h1 className="text-danger fs-5 fw-bold mb-3 mb-md-0">Meetup</h1>
-        <div className="w-100 w-md-auto position-relative">
+      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
+        <h1 style={{ color: "red", fontSize: "1.5rem", fontWeight: "500", margin: 0 }}>
+          Meetup
+        </h1>
+        <div style={{ width: "220px", position: "relative", marginRight: "10px" }}>
           <i
             className="bi bi-search"
-            style={{
-              position: "absolute",
-              left: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-            }}
+            style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)" }}
           ></i>
           <input
             type="search"
-            className="rounded ps-5 text-secondary w-100"
+            className="rounded ps-5 text-secondary"
             placeholder="Search by title and t..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ border: "none", boxShadow: "none" }}
+            style={{ border: "none", boxShadow: "none"}}
           />
         </div>
       </div>
@@ -55,11 +51,11 @@ const EventList = () => {
       <hr className="container" />
 
       {/* Filter */}
-      <div className="d-flex flex-column flex-md-row align-items-center justify-content-between px-3 py-3 w-100 container">
-        <h2 className="fw-bold mb-3 mb-md-0">MeetUp Events</h2>
-        <div className="w-100 w-md-auto position-relative">
+      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
+        <h2 className="fw-bold">MeetUp Events</h2>
+        <div style={{ width: "200px", position: "relative", marginLeft: "10px" }}>
           <select
-            className="rounded p-2 text-secondary w-100 w-md-auto"
+            className="rounded p-1 text-secondary"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             style={{ border: "none", boxShadow: "none" }}
@@ -74,41 +70,49 @@ const EventList = () => {
 
       {/* Event Cards */}
       <div className="container">
-        <div className="row g-4 justify-content-center">
+        <div className="row g-3">
           {filteredEvents.map((event) => (
-            <div key={event._id} className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div key={event._id} className="col-lg-4">
+              {/* Entire card + info wrapped in Link */}
               <Link
                 to={`/events/${event._id}`}
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
               >
+                {/* Image Card */}
                 <div
-                  className="card"
+                  className="card ms-5"
                   style={{
-                    width: "100%",
-                    height: "auto",
+                    width: "250px",
+                    height: "250px",
                     borderRadius: "10px",
                     overflow: "hidden",
-                    position: "relative",
+                    position: "relative"
                   }}
                 >
                   <img
                     src={event.thumbnailUrl}
-                    alt={event.title}
-                    className="card-img-top"
-                    style={{
-                      height: "200px",
-                      objectFit: "cover",
-                    }}
+                    alt=""
+                    style={{ height: "100%", width: "100%", objectFit: "cover" }}
                   />
                   <span
-                    className="position-absolute top-0 start-0 m-2 bg-white text-black px-2 py-1 rounded-pill fw-bold"
-                    style={{ fontSize: "0.85rem" }}
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      left: "10px",
+                      backgroundColor: "white",
+                      color: "black",
+                      padding: "4px 10px",
+                      borderRadius: "8px",
+                      fontSize: "0.85rem",
+                      fontWeight: "500"
+                    }}
                   >
                     {event.type}
                   </span>
                 </div>
 
-                <div className="mt-2">
+                {/* Event Info */}
+                <div style={{ marginTop: "4px", paddingLeft: "4px" }} className="ms-5">
                   <small className="text-muted">
                     {new Date(event.date).toDateString()} •{" "}
                     {new Date(event.date).toLocaleTimeString("en-US")} IST
