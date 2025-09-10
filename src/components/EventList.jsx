@@ -7,7 +7,7 @@ const EventList = () => {
   const [filterType, setFilterType] = useState("Both");
 
   useEffect(() => {
-    fetch("https://meetup-app-backend-chi.vercel.app/")
+    fetch("https://meetup-app-backend-chi.vercel.app/events")
       .then((res) => res.json())
       .then((data) => setEvents(data.events))
       .catch((err) => console.error(err));
