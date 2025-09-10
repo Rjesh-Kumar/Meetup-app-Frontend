@@ -28,22 +28,21 @@ const EventList = () => {
   return (
     <div style={{ backgroundColor: "#dee2e6", minHeight: "100vh" }}>
       {/* Header & Search */}
-      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
-        <h1 style={{ color: "red", fontSize: "1.5rem", fontWeight: "500", margin: 0 }}>
+      <div className="container d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between px-3 py-3">
+        <h1 className="text-danger mb-3 mb-md-0" style={{ fontSize: "1.5rem", fontWeight: 500 }}>
           Meetup
         </h1>
-        <div style={{ width: "220px", position: "relative", marginRight: "10px" }}>
+        <div className="position-relative w-100 w-md-auto" style={{ maxWidth: "220px" }}>
           <i
-            className="bi bi-search"
-            style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)" }}
+            className="bi bi-search position-absolute"
+            style={{ left: "10px", top: "50%", transform: "translateY(-50%)" }}
           ></i>
           <input
             type="search"
-            className="rounded ps-5 text-secondary"
-            placeholder="Search by title and t..."
+            className="form-control rounded ps-5 text-secondary"
+            placeholder="Search by title and tags..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ border: "none", boxShadow: "none"}}
           />
         </div>
       </div>
@@ -51,14 +50,13 @@ const EventList = () => {
       <hr className="container" />
 
       {/* Filter */}
-      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
-        <h2 className="fw-bold">MeetUp Events</h2>
-        <div style={{ width: "200px", position: "relative", marginLeft: "10px" }}>
+      <div className="container d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between px-3 py-3 mb-3">
+        <h2 className="fw-bold mb-2 mb-md-0">MeetUp Events</h2>
+        <div className="w-100 w-md-auto">
           <select
-            className="rounded p-1 text-secondary"
+            className="form-select rounded p-1 text-secondary"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            style={{ border: "none", boxShadow: "none" }}
           >
             <option value="Both">Select Event Type</option>
             <option value="Online Event">Online Event</option>
@@ -70,20 +68,19 @@ const EventList = () => {
 
       {/* Event Cards */}
       <div className="container">
-        <div className="row g-3">
+        <div className="row g-3 justify-content-center">
           {filteredEvents.map((event) => (
-            <div key={event._id} className="col-lg-4">
-              {/* Entire card + info wrapped in Link */}
+            <div key={event._id} className="col-12 col-sm-6 col-lg-4 d-flex justify-content-center">
               <Link
                 to={`/events/${event._id}`}
-                style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+                className="text-decoration-none text-dark"
               >
                 {/* Image Card */}
                 <div
-                  className="card ms-5"
+                  className="card"
                   style={{
-                    width: "250px",
-                    height: "250px",
+                    width: "100%",
+                    maxWidth: "250px",
                     borderRadius: "10px",
                     overflow: "hidden",
                     position: "relative"
@@ -91,12 +88,13 @@ const EventList = () => {
                 >
                   <img
                     src={event.thumbnailUrl}
-                    alt=""
-                    style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                    alt={event.title}
+                    className="img-fluid"
+                    style={{ objectFit: "cover", height: "250px" }}
                   />
                   <span
+                    className="position-absolute"
                     style={{
-                      position: "absolute",
                       top: "10px",
                       left: "10px",
                       backgroundColor: "white",
@@ -104,7 +102,7 @@ const EventList = () => {
                       padding: "4px 10px",
                       borderRadius: "8px",
                       fontSize: "0.85rem",
-                      fontWeight: "500"
+                      fontWeight: 500
                     }}
                   >
                     {event.type}
@@ -112,12 +110,12 @@ const EventList = () => {
                 </div>
 
                 {/* Event Info */}
-                <div style={{ marginTop: "4px", paddingLeft: "4px" }} className="ms-5">
-                  <small className="text-muted">
+                <div className="mt-2">
+                  <small className="text-muted d-block">
                     {new Date(event.date).toDateString()} •{" "}
                     {new Date(event.date).toLocaleTimeString("en-US")} IST
                   </small>
-                  <h6 className="mt-1 fw-bold fs-5">{event.title}</h6>
+                  <h6 className="fw-bold fs-5">{event.title}</h6>
                 </div>
               </Link>
             </div>
