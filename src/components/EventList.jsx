@@ -28,34 +28,22 @@ const EventList = () => {
   return (
     <div style={{ backgroundColor: "#dee2e6", minHeight: "100vh" }}>
       {/* Header & Search */}
-      <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between px-3 py-3 container">
-        <h1
-          style={{
-            color: "red",
-            fontSize: "1.5rem",
-            fontWeight: "500",
-            margin: 0,
-          }}
-        >
+      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
+        <h1 style={{ color: "red", fontSize: "1.5rem", fontWeight: "500", margin: 0 }}>
           Meetup
         </h1>
-        <div className="mt-2 mt-md-0 w-100 w-md-auto position-relative">
+        <div style={{ width: "220px", position: "relative", marginRight: "10px" }}>
           <i
             className="bi bi-search"
-            style={{
-              position: "absolute",
-              left: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-            }}
+            style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)" }}
           ></i>
           <input
             type="search"
-            className="rounded ps-5 text-secondary w-100"
-            placeholder="Search by title and tags..."
+            className="rounded ps-5 text-secondary"
+            placeholder="Search by title and t..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ border: "none", boxShadow: "none" }}
+            style={{ border: "none", boxShadow: "none"}}
           />
         </div>
       </div>
@@ -63,13 +51,14 @@ const EventList = () => {
       <hr className="container" />
 
       {/* Filter */}
-      <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between px-3 py-3 container">
+      <div className="d-flex align-items-center justify-content-between px-3 py-3 w-100 container">
         <h2 className="fw-bold">MeetUp Events</h2>
-        <div className="mt-2 mt-md-0" style={{ minWidth: "200px" }}>
+        <div style={{ width: "200px", position: "relative", marginLeft: "10px" }}>
           <select
-            className="form-select text-secondary"
+            className="rounded p-1 text-secondary"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
+            style={{ border: "none", boxShadow: "none" }}
           >
             <option value="Both">Select Event Type</option>
             <option value="Online Event">Online Event</option>
@@ -81,28 +70,29 @@ const EventList = () => {
 
       {/* Event Cards */}
       <div className="container">
-        <div className="row g-3 justify-content-center">
+        <div className="row g-3">
           {filteredEvents.map((event) => (
-            <div key={event._id} className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+            <div key={event._id} className="col-lg-4">
+              {/* Entire card + info wrapped in Link */}
               <Link
                 to={`/events/${event._id}`}
                 style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
-                className="w-100"
               >
                 {/* Image Card */}
                 <div
-                  className="card w-100"
+                  className="card ms-5"
                   style={{
+                    width: "250px",
+                    height: "250px",
                     borderRadius: "10px",
                     overflow: "hidden",
-                    position: "relative",
+                    position: "relative"
                   }}
                 >
                   <img
                     src={event.thumbnailUrl}
                     alt=""
-                    className="w-100"
-                    style={{ height: "200px", objectFit: "cover" }}
+                    style={{ height: "100%", width: "100%", objectFit: "cover" }}
                   />
                   <span
                     style={{
@@ -114,7 +104,7 @@ const EventList = () => {
                       padding: "4px 10px",
                       borderRadius: "8px",
                       fontSize: "0.85rem",
-                      fontWeight: "500",
+                      fontWeight: "500"
                     }}
                   >
                     {event.type}
@@ -122,7 +112,7 @@ const EventList = () => {
                 </div>
 
                 {/* Event Info */}
-                <div className="mt-2 px-2">
+                <div style={{ marginTop: "4px", paddingLeft: "4px" }} className="ms-5">
                   <small className="text-muted">
                     {new Date(event.date).toDateString()} •{" "}
                     {new Date(event.date).toLocaleTimeString("en-US")} IST
